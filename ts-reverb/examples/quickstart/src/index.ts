@@ -1,4 +1,4 @@
-import { Reverb } from "../dist/index.js";
+import { Reverb } from "../../../dist/index.js";
 
 async function main() {
   const token = process.env.REVERB_TOKEN;
@@ -7,7 +7,7 @@ async function main() {
     process.exit(1);
   }
 
-  const client = new Reverb({ token, /* baseUrl: "https://sandbox.reverb.com/api" */ });
+  const client = new Reverb({ token, baseUrl: "https://sandbox.reverb.com/api" });
 
   const me = await client.getMyAccount();
   console.log("Account:", me);

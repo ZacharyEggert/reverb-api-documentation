@@ -10,10 +10,8 @@
 		"skipLibCheck": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
-		"resolveJsonModule": true,
-		"typeRoots": ["./node_modules/@types"],
-		"types": ["node"]
+		"resolveJsonModule": true
 	},
-	"include": ["src/**/*.ts", "examples/**/*.ts"],
+	"include": ["src/**/*.ts"],
 	"exclude": ["dist", "node_modules"]
 }

@@ -95,6 +95,21 @@ Development
 # build
 bun run build
 
+# run tests
+bun test
+
 # clean
 bun run clean
 ```
+
+Tests
+-----
+
+The library includes a comprehensive test suite covering:
+
+- Authentication and headers (Bearer token, HAL+JSON, custom headers)
+- All API endpoint methods (account, listings, images, bumps, sales, offers, orders, payments, payouts, vacation, messages, feedback, refunds, negotiations)
+- Error handling (404, 429 rate limits, 412 validation errors)
+- Base URL configuration (production vs sandbox)
+
+Run with `bun test` to execute 54+ test cases validating correct HTTP methods, URLs, query parameters, and request payloads.
