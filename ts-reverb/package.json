@@ -1,0 +1,32 @@
+{
+  "name": "ts-reverb",
+  "version": "0.1.0",
+  "description": "TypeScript client for the Reverb API (Bun-friendly)",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "bun run clean && bun run build"
+  },
+  "keywords": [
+    "reverb",
+    "api",
+    "typescript",
+    "client",
+    "bun"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "@types/node": "^20"
+  }
+}
