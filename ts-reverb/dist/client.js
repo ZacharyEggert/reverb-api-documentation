@@ -5,25 +5,32 @@ export class Reverb {
     }
     // 22 Account Details
     getMyAccount() {
-        return this.http.request("GET", "/api/my/account");
+        return this.http.request("GET", "/my/account");
+    }
+    // Get a single listing
+    getListing(listingId) {
+        return this.http.request("GET", `/listings/${listingId}`);
     }
     // 7 Creating and Updating Listings
     createListing(payload, opts) {
-        return this.http.request("POST", "/api/listings", payload, {
+        return this.http.request("POST", "/listings", payload, {
             query: opts?.publish ? { publish: true } : undefined,
         });
     }
     updateListing(listingId, payload, opts) {
-        return this.http.request("PUT", `/api/listings/${listingId}`, payload, {
+        return this.http.request("PUT", `/listings/${listingId}`, payload, {
             query: opts?.publish ? { publish: true } : undefined,
         });
     }
     endListing(listingId, payload) {
-        return this.http.request("PUT", `/api/my/listings/${listingId}/state/end`, payload);
+        return this.http.request("PUT", `/my/listings/${listingId}/state/end`, payload);
+    }
+    deleteListing(listingId) {
+        return this.http.request("DELETE", `/listings/${listingId}`);
     }
     // 8 Image Updating
     getListingImages(listingId) {
-        return this.http.request("GET", `/api/listings/${listingId}/images/`);
+        return this.http.request("GET", `/listings/${listingId}/images/`);
     }
     // Reorder/override positions by sending photos array on listing update
     reorderImages(listingId, photos) {
@@ -34,21 +41,21 @@ export class Reverb {
     }
     // 9 Managing Drafts
     listDrafts(params) {
-        return this.http.request("GET", "/api/my/listings/drafts", undefined, { query: params });
+        return this.http.request("GET", "/my/listings/drafts", undefined, { query: params });
     }
     // 10 Manage Bumps
     getBumpInfo(listingId) {
-        return this.http.request("GET", `/api/listings/${listingId}/bump`);
+        return this.http.request("GET", `/listings/${listingId}/bump`);
     }
     setBumpBid(listingIds, bid) {
-        return this.http.request("PUT", "/api/bump/v2/bids", { products: listingIds, bid });
+        return this.http.request("PUT", "/bump/v2/bids", { products: listingIds, bid });
     }
     removeBump(listingIds) {
-        return this.http.request("DELETE", "/api/bump/v2/bids", { products: listingIds });
+        return this.http.request("DELETE", "/bump/v2/bids", { products: listingIds });
     }
     // 11 Manage Sales
     addListingsToSale(saleId, listingIds) {
-        return this.http.request("POST", `/api/sales/${saleId}/listings`, { listing_ids: listingIds });
+        return this.http.request("POST", `/sales/${saleId}/listings`, { listing_ids: listingIds });
     }
     removeListingsFromSale(saleId, listingIds) {
         return this.http.request("DELETE", `/api/sales/${saleId}/listings`, { listing_ids: listingIds });
@@ -57,10 +64,10 @@ export class Reverb {
         return this.http.request("GET", `/api/listings/${listingId}/sales`);
     }
     listSellerSales() {
-        return this.http.request("GET", "/api/sales/seller");
+        return this.http.request("GET", "/sales/seller");
     }
     listReverbSales() {
-        return this.http.request("GET", "/api/sales/reverb");
+        return this.http.request("GET", "/sales/reverb");
     }
     // 12 Manage Direct Offers
     getAutoOffer(listingId) {
@@ -74,7 +81,7 @@ export class Reverb {
     }
     // 13 Retrieve Orders
     listOrders(params) {
-        return this.http.request("GET", "/api/my/orders/selling/all", undefined, { query: params });
+        return this.http.request("GET", "/my/orders/selling/all", undefined, { query: params });
     }
     // 14 Ship Orders
     createShipment(orderId, payload) {
@@ -83,31 +90,31 @@ export class Reverb {
     // 15 Tying Orders Together - handled via data (order_bundle_id)
     // 19 Payments and PayPal Transactions
     listPayments(params) {
-        return this.http.request("GET", "/api/my/payments/selling", undefined, { query: params });
+        return this.http.request("GET", "/my/payments/selling", undefined, { query: params });
     }
     listPaymentMethods() {
-        return this.http.request("GET", "/api/payment_methods");
+        return this.http.request("GET", "/payment_methods");
     }
     // 20 Read Payouts
     listPayouts(params) {
-        return this.http.request("GET", "/api/my/payouts", undefined, { query: params });
+        return this.http.request("GET", "/my/payouts", undefined, { query: params });
     }
     listPayoutLineItems(payoutId, params) {
         return this.http.request("GET", `/api/my/payouts/${payoutId}/line_items`, undefined, { query: params });
     }
     // 21 Vacation Mode
     enableVacation() {
-        return this.http.request("POST", "/api/shop/vacation");
+        return this.http.request("POST", "/shop/vacation");
     }
     disableVacation() {
-        return this.http.request("DELETE", "/api/shop/vacation");
+        return this.http.request("DELETE", "/shop/vacation");
     }
     getVacationStatus() {
-        return this.http.request("GET", "/api/shop/vacation");
+        return this.http.request("GET", "/shop/vacation");
     }
     // 23 Manage Messages
     listConversations(params) {
-        return this.http.request("GET", "/api/my/conversations", undefined, { query: params });
+        return this.http.request("GET", "/my/conversations", undefined, { query: params });
     }
     listUnreadConversations() {
         return this.listConversations({ unread_only: true });
@@ -123,10 +130,10 @@ export class Reverb {
     }
     // 24 Manage Feedback
     listFeedbackReceived() {
-        return this.http.request("GET", "/api/my/feedback/received");
+        return this.http.request("GET", "/my/feedback/received");
     }
     listFeedbackSent() {
-        return this.http.request("GET", "/api/my/feedback/sent");
+        return this.http.request("GET", "/my/feedback/sent");
     }
     leaveBuyerFeedback(orderId, message, rating) {
         return this.http.request("POST", `/api/orders/${orderId}/feedback/buyer`, { message, rating });
@@ -136,7 +143,7 @@ export class Reverb {
     }
     // 17 Manage Refund Requests
     listRefundRequests(params) {
-        return this.http.request("GET", "/api/my/refund_requests/selling", undefined, { query: params });
+        return this.http.request("GET", "/my/refund_requests/selling", undefined, { query: params });
     }
     updateRefundRequest(refundRequestId, payload) {
         return this.http.request("PUT", `/api/my/refund_requests/selling/${refundRequestId}`, payload);
@@ -146,7 +153,7 @@ export class Reverb {
     }
     // 18 Manage Negotiations
     listNegotiations() {
-        return this.http.request("GET", "/api/my/listings/negotiations");
+        return this.http.request("GET", "/my/listings/negotiations");
     }
     getNegotiation(offerId) {
         return this.http.request("GET", `/api/my/negotiations/${offerId}`);

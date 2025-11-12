@@ -3,6 +3,7 @@ export declare class Reverb {
     private http;
     constructor(opts: ReverbClientOptions);
     getMyAccount(): Promise<unknown>;
+    getListing(listingId: string | number): Promise<unknown>;
     createListing(payload: ListingCreateUpdatePayload, opts?: {
         publish?: boolean;
     }): Promise<unknown>;
@@ -10,6 +11,7 @@ export declare class Reverb {
         publish?: boolean;
     }): Promise<unknown>;
     endListing(listingId: string | number, payload: EndListingPayload): Promise<unknown>;
+    deleteListing(listingId: string | number): Promise<unknown>;
     getListingImages(listingId: string | number): Promise<unknown>;
     reorderImages(listingId: string | number, photos: string[]): Promise<unknown>;
     deleteImage(listingId: string | number, imageId: string | number): Promise<unknown>;

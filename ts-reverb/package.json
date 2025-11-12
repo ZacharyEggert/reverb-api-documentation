@@ -14,7 +14,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "clean": "rm -rf dist",
-    "test": "bun test",
+    "test": "bun test src/client.test.ts",
+    "test:integration": "bun test src/integration.test.ts",
     "prepublishOnly": "bun run clean && bun run build"
   },
   "keywords": [

@@ -112,4 +112,17 @@ The library includes a comprehensive test suite covering:
 - Error handling (404, 429 rate limits, 412 validation errors)
 - Base URL configuration (production vs sandbox)
 
-Run with `bun test` to execute 54+ test cases validating correct HTTP methods, URLs, query parameters, and request payloads.
+**Unit tests** - Run with `bun test` to execute 54+ test cases with mocked fetch validating correct HTTP methods, URLs, query parameters, and request payloads.
+
+**Integration tests** - Test against the real Reverb API (sandbox or production):
+
+1. Get a token from your account:
+   - Sandbox: <https://sandbox.reverb.com/my/account/api>
+   - Production: <https://reverb.com/my/account/api>
+2. Create `.env` file: `cp .env.example .env` and add your token
+3. Ensure your account has a shop configured (required for most endpoints)
+4. Run: `bun test:integration`
+
+**Important**: Tokens are environment-specific. Sandbox tokens only work with `sandbox.reverb.com`, production tokens only work with `api.reverb.com`. The tests default to sandbox; set `REVERB_BASE_URL=https://api.reverb.com/api` in `.env` for production.
+
+**Results**: 17/21 tests pass on production with an active shop. Tests verify: account details, drafts, orders, sales, payments, payouts, vacation mode, conversations, feedback, refunds, negotiations, and error handling.
